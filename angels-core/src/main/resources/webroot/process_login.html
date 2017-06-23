@@ -1,0 +1,56 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.Catch"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+         pageEncoding="EUC-KR" import="java.sql.*"%>
+<%
+    request.setCharacterEncoding("euc-kr");
+    String user_id = request.getParameter("id");
+    String user_pw = request.getParameter("password");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <title>Login</title>
+</head>
+<body>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase-database.js"></script>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCnmZWNwp3CfjXDcDL5MADIej6GwvxWEtQ",
+        authDomain: "dsmweb-ba185.firebaseapp.com",
+        databaseURL: "https://dsmweb-ba185.firebaseio.com",
+        storageBucket: "dsmweb-ba185.appspot.com",
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+    var user_id = '<%=user_id%>';
+    var user_pw = '<%=user_pw%>';
+
+    var favMovies = new Firebase('https://angels-hosting.firebaseio.com/');
+
+
+    firebase.database().ref('/users/' + user_id).once('value').then(function(snapshot) {
+        if (snapshot.val() != null && user_id == snapshot.val().username && user_pw == snapshot.val().password)
+        {
+            var user_kind = snapshot.val().type;
+            location.replace("index.html?user_type="+snapshot.val().type);
+        }
+        else {
+            alert("ID/PW 가 틀립니다. 다시 확인해주세요.");
+            location.replace("login.html");
+        }
+        // ...
+    });
+</script>
+
+
+
+</body>
+</html>

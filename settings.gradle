@@ -1,0 +1,4 @@
+rootProject.name = 'angels-hosting2'
+include 'angels-core'
+include 'angels-utils'
+

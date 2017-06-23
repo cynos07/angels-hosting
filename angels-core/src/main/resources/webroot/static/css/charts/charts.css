@@ -1,0 +1,12 @@
+.charts {
+    padding: 5%;
+}
+
+.chartsTable{
+    table-layout: fixed;
+    width: 100%;
+}
+
+.circleCanvas{
+    margin: 20px;
+}

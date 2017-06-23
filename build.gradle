@@ -1,0 +1,23 @@
+allprojects {
+    group 'kr.minetop'
+    version '2.0'
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+    }
+}
+
+project(':angels-core') {
+    dependencies {
+        compile project(':angels-utils')
+    }
+}
