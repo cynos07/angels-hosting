@@ -4,6 +4,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
+import kr.angels.Quartz.CheckEveryday;
 
 /**
  * Created by production on 2017-03-29.
@@ -24,6 +25,7 @@ public class VertxMain {
 
     public static void main(String[] args) {
         initialize();
+        CheckEveryday.getInstance().start();
         vertx.deployVerticle(new WebVerticle()); // using static Handler, must be after other verticle deploied.
         vertx.createHttpServer().requestHandler(router::accept).listen(8085);
     }

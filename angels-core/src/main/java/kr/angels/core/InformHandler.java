@@ -6,6 +6,8 @@ import io.vertx.ext.web.RoutingContext;
 import kr.angels.utils.database.Database;
 import org.bson.Document;
 
+import java.util.Date;
+
 /**
  * Created by cynos07 on 2017-04-17.
  */
@@ -34,10 +36,9 @@ public class InformHandler extends WebVerticle {
         doc.put("hosting_pw", "0000");
         doc.put("use_port", 3055);
         doc.put("use_ram", 5);
-        doc.put("deadline", "12/24");
+        doc.put("deadline", String.valueOf(new Date().getTime()));
 
         database.insert("informs", doc);
-
         response.end("addInform called");
     }
 

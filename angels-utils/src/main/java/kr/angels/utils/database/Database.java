@@ -26,7 +26,6 @@ public enum Database {
     private Document doc;
 
     Database() {
-        System.out.println(DB_URL);
         uri = new MongoClientURI(DB_URL);
         mongoClient = new MongoClient(uri);
         mongoDatabase = mongoClient.getDatabase(DEFAULT_DB_NAME);
@@ -109,5 +108,13 @@ public enum Database {
     public static Database getInstance()
     {
         return INSTANCE;
+    }
+
+    public MongoCollection<Document> getCollection() {
+        return collection;
+    }
+    public MongoCollection<Document> getCollection(String collection) {
+        this.collection = mongoDatabase.getCollection(collection);
+        return this.collection;
     }
 }

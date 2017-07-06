@@ -100,7 +100,7 @@
                 </thead>
                 <tbody id="useInfo">
                     <#list context.uses as json>
-                    <#assign use = json?eval>
+                    <#assign use = json?eval><#setting number_format="###">
                     <tr><td> ${use.hosting_id} </td><td> ${use.hosting_pw} </td><td> ${use.use_port} </td><td> ${use.use_ram} GB</td><td> ${use.deadline} </td><td><a href="https://pf.kakao.com/_nXaxaM#none">충전하기</a></td></tr>
                     </#list>
                 </tbody>

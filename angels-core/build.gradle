@@ -20,4 +20,7 @@ dependencies {
     compile files("${rootDir}/libs/sigar/sigar.jar")
     runtime fileTree(dir: "${rootDir}/libs/sigar/", exclude: "*.jar")
     compile 'io.vertx:vertx-web-templ-freemarker:3.4.2'
+    // https://mvnrepository.com/artifact/org.quartz-scheduler/quartz
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.2.1'
+
 }
