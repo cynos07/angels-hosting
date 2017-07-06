@@ -99,6 +99,23 @@ body{
   background: #3276B1;
 }
 
+.modal-header .col-xs-6 {
+  text-align: center;
+  color: #404040;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.1s linear;
+}
+
+.modal-header .col-xs-6.active {
+  font-size: 18px;
+  color: #337ab7;
+}
+
+#login_modal {
+  height: 50px;
+}
 
 .overflow{
     overflow: hidden;

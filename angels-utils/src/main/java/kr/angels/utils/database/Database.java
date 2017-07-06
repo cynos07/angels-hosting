@@ -16,7 +16,7 @@ import static com.mongodb.client.model.Filters.eq;
  */
 public enum Database {
     INSTANCE;
-    private final String DB_URL = "mongodb://" + SecureConfig.INSTANCE.getString("database.id") + ":" + SecureConfig.INSTANCE.getString("database.password") + "@studygram-shard-00-00-csfwe.mongodb.net:27017,studygram-shard-00-01-csfwe.mongodb.net:27017,studygram-shard-00-02-csfwe.mongodb.net:27017/" + SecureConfig.INSTANCE.getString("database.name") + "?ssl=true&keepAlive=7200&replicaSet=studygram-shard-0&authSource=admin";
+    private final String DB_URL = "mongodb://" + SecureConfig.INSTANCE.getString("database.id") + ":" + SecureConfig.INSTANCE.getString("database.password") + "@studygram-shard-00-00-csfwe.mongodb.net:27017,studygram-shard-00-01-csfwe.mongodb.net:27017,studygram-shard-00-02-csfwe.mongodb.net:27017/" + SecureConfig.INSTANCE.getString("database.name") + "?ssl=true&maxIdleTimeMS=999999999&replicaSet=studygram-shard-0&authSource=admin";
     private final String DEFAULT_DB_NAME = "angels-hosting";
 
     private MongoClientURI uri;
