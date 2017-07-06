@@ -46,17 +46,20 @@ public class InformHandler extends WebVerticle {
         HttpServerResponse response = routingContext.response();
         response.setChunked(true);
 
-        String id = routingContext.session().get(routingContext.getCookie("ls").getValue());
-        if(id != null)
+        if(routingContext.getCookie("ls") != null)
         {
-            Document searchQuery = new Document();
-            searchQuery.put("id", id);
-            Document account = database.findOne("accounts", searchQuery);
+            String id = routingContext.session().get(routingContext.getCookie("ls").getValue());
+            if(id != null)
+            {
+                Document searchQuery = new Document();
+                searchQuery.put("id", id);
+                Document account = database.findOne("accounts", searchQuery);
 
-            Document result = new Document();
-            routingContext.put("name", account.get("name"));
-            routingContext.put("uses", database.findMany("informs", searchQuery));
-            routingContext.next();
+                Document result = new Document();
+                routingContext.put("name", account.get("name"));
+                routingContext.put("uses", database.findMany("informs", searchQuery));
+                routingContext.next();
+            }
         }
     }
 }

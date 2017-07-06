@@ -8,7 +8,7 @@ import io.vertx.ext.web.handler.StaticHandler;
 /**
  * Created by production on 2017-04-02.
  */
-public class studyVerticle extends AbstractVerticle {
+public class StudyVerticle extends AbstractVerticle {
 
     public static final String webroot = "kr.studygram.core";
 

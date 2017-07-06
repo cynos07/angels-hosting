@@ -48,7 +48,11 @@ public class LoginHandler extends WebVerticle {
         }
         else{
             routingContext.put("isLogined", false);
-            routingContext.response().setStatusCode(500);
+            if(!routingContext.currentRoute().getPath().equals("/dynamic/index")) {
+                routingContext.response().setStatusCode(401);
+                routingContext.reroute("/dynamic/index");
+            }
+            routingContext.response().setStatusCode(200);
             routingContext.next();
         }
     }

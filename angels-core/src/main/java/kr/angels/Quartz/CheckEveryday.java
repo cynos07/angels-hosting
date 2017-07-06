@@ -32,7 +32,6 @@ public enum CheckEveryday{
 //         Trigger the job to run now, and then repeat every 40 seconds
         CronTrigger trigger = newTrigger()
                 .withIdentity("trigger1", "group1")
-                .withSchedule(cronSchedule(""))
                 .withSchedule(cronSchedule("0 0 0 * * ?"))
                 .build();
 
