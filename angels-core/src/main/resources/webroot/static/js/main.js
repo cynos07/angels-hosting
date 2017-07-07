@@ -135,9 +135,15 @@ jQuery(function ($) {
         $("#id").focus();
     });
 
-    $('#show_login').keyup(function (e) {
+    $('#login-password').keyup(function (e) {
         if (e.keyCode == 13) {
-            $(".modal-footer button").click();
+            $("#login-button").click();
+        }
+    });
+
+    $('#register-registerCode').keyup(function (e) {
+        if (e.keyCode == 13) {
+            $("#register-button").click();
         }
     });
 
@@ -198,16 +204,13 @@ jQuery(function ($) {
 
         progressBar.animate({width: "100%"}, 100);
 
-        progress.delay(500)
-            .fadeOut(600);
+        progress.delay(500).fadeOut(600);
 
         console.log('xhr');
 
         var xhr = new XMLHttpRequest();
         xhr.onload = function () {
             if (xhr.status == 200) {
-                console.log(xhr.response);
-                var response = JSON.parse(xhr.response);
                 location.replace("/dynamic/index");
             } else {
                 button.delay(1000).fadeIn(300);

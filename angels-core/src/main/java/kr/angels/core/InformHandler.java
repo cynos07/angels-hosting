@@ -56,7 +56,7 @@ public class InformHandler extends WebVerticle {
                 Document account = database.findOne("accounts", searchQuery);
 
                 Document result = new Document();
-                routingContext.put("name", account.get("name"));
+                routingContext.put("name", account.get("id"));
                 routingContext.put("uses", database.findMany("informs", searchQuery));
                 routingContext.next();
             }
