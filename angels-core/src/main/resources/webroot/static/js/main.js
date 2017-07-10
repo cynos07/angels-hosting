@@ -204,9 +204,8 @@ jQuery(function ($) {
 
         progressBar.animate({width: "100%"}, 100);
 
-        progress.delay(500).fadeOut(600);
-
-        console.log('xhr');
+        progress.delay(500)
+            .fadeOut(600);
 
         var xhr = new XMLHttpRequest();
         xhr.onload = function () {
@@ -239,7 +238,6 @@ jQuery(function ($) {
             .addClass("btn-primary")
             .text("Ok")
             .removeAttr("data-dismiss");
-
     });
 
     var unique_id = $.gritter.add({
