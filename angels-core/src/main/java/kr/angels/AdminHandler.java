@@ -1,8 +1,9 @@
-package kr.angels.Admin;
+package kr.angels;
 
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import kr.angels.admin.RegisterCode;
 import kr.angels.core.WebVerticle;
 import kr.angels.utils.database.Database;
 import org.bson.Document;

@@ -4,7 +4,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
-import kr.angels.Admin.RegisterCode;
+import kr.angels.admin.RegisterCode;
 import kr.angels.Quartz.CheckEveryday;
 
 /**
@@ -28,7 +28,6 @@ public class VertxMain {
         initialize();
         CheckEveryday.getInstance().start();
         RegisterCode.getInstance().checkRegisterCodeExist();
-        RegisterCode.getInstance().refreshRegisterCode();
         vertx.deployVerticle(new WebVerticle()); // using static Handler, must be after other verticle deploied.
         vertx.createHttpServer().requestHandler(router::accept).listen(8003);
     }

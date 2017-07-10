@@ -7,7 +7,7 @@ import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
-import kr.angels.Admin.RegisterCode;
+import kr.angels.admin.RegisterCode;
 import kr.angels.utils.database.Database;
 import org.bson.Document;
 
@@ -27,11 +27,33 @@ public class LoginHandler extends WebVerticle {
         initialize();
         router.get("/dynamic/index").handler(this::checkLogin);
         router.get("/dynamic/inform").handler(this::checkLogin);
+        router.get("/dynamic/admin").handler(this::checkAdmin);
         router.get("/dynamic/computer").handler(this::checkLogin);
         router.get("/api/checkLogin").handler(this::checkLogin);
         router.get("/api/logout").handler(this::requestLogout);
         router.post("/api/login").handler(this::requestLogin);
         router.post("/api/register").handler(this::requestRegister);
+    }
+
+    private void checkAdmin(RoutingContext routingContext) {
+        if (routingContext.getCookie("ls") != null) {
+            String id = routingContext.session().get(routingContext.getCookie("ls").getValue());
+            Document searchQuqery = new Document();
+            searchQuqery.put("id", id);
+            Database.getInstance().getCollection("accounts").find(searchQuqery).first().get("type");
+            if (Database.getInstance().getCollection("accounts").find(searchQuqery).first().get("type").equals("admin")) {
+                routingContext.response().setStatusCode(200);
+                routingContext.next();
+            }
+            else{
+                routingContext.response().setStatusCode(400);
+                routingContext.reroute("/dynamic/index");
+            }
+        }
+        else{
+            routingContext.response().setStatusCode(400);
+            routingContext.reroute("/dynamic/index");
+        }
     }
 
     private boolean registerAccount(String id, String password)
@@ -67,6 +89,7 @@ public class LoginHandler extends WebVerticle {
                     {
                         response.setStatusCode(200);
                         json_response.put("message", "회원가입 되었습니다.");
+                        RegisterCode.getInstance().refreshRegisterCode();
                         response.end(json_response.toString());
                     } else{
                         response.setStatusCode(400);
