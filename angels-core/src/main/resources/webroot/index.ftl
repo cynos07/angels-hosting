@@ -273,7 +273,8 @@
 
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="password" class="form-control" id="login-password" placeholder="비밀번호">
+                        <input type="password" class="form-control" id="login-password" placeholder="비밀번호"
+                               onkeypress="JavaScript:press(this.form)">
                         <label for="password" class="input-group-addon glyphicon glyphicon-lock"></label>
                     </div> <!-- /.input-group -->
                 </div> <!-- /.form-group -->
@@ -303,7 +304,8 @@
 
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="register-registerCode" placeholder="인증코드">
+                        <input type="text" class="form-control" id="register-registerCode" placeholder="인증코드"
+                               onkeypress="JavaScript:press(this.form)">
                         <label for="password" class="input-group-addon glyphicon glyphicon-qrcode"></label>
                     </div> <!-- /.input-group -->
                 </div> <!-- /.form-group -->

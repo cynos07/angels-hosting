@@ -1,0 +1,666 @@
+/**
+   Coded by /u/j0be in scss.
+   See scss source here -> https://codepen.io/j0be/pen/MKRVyN
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900|Dosis:300,400,600,700,800|Droid+Sans:400,700|Lato:300,400,700,900|PT+Sans:400,700|Ubuntu:300,400,500,700|Open+Sans:400,300,600,700|Roboto:400,300,500,700,900|Roboto+Condensed:400,300,700|Open+Sans+Condensed:300,700|Work+Sans:400,300,700|Play:400,700|Maven+Pro:400,500,700,900&subset=latin,latin-ext);
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #292C33;
+    color: White;
+    font-size: 16px;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 300;
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+header {
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    background-color: #2776C5;
+    padding: 1rem;
+}
+
+header .menu {
+    float: left;
+}
+
+header .menu i {
+    font-size: 2.2rem;
+    margin-top: 0.5rem;
+}
+
+header .menu .title {
+    margin-left: 1rem;
+    display: inline-block;
+    font-size: 2.5rem;
+}
+
+header .user {
+    float: right;
+}
+
+header .user img {
+    -moz-border-radius: 24px;
+    -webkit-border-radius: 24px;
+    border-radius: 24px;
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+}
+
+header .user .content {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    display: inline-block;
+    vertical-align: top;
+}
+
+header .user .content .name {
+    font-weight: 400;
+    font-size: 1.4rem;
+}
+
+header .user .content .titulus {
+    font-size: 0.7rem;
+}
+
+header .search {
+    float: right;
+    margin-right: 1rem;
+}
+
+header .search i {
+    font-size: 2rem;
+    margin-top: 0.5rem;
+}
+
+header:before,
+header:after {
+    content: "";
+    display: table;
+}
+
+header:after {
+    clear: both;
+}
+
+.statusbar {
+    position: absolute;
+    width: 100%;
+    height: 2rem;
+    padding: 0 1rem;
+    background-color: #343841;
+    border-bottom: 2px solid #292C33;
+    font-size: 0.8rem;
+    line-height: 2rem;
+    color: #cccccc;
+}
+
+.statusbar .notification {
+    float: left;
+}
+
+.statusbar .notification i {
+    margin-right: 0.5rem;
+}
+
+.statusbar .date {
+    float: right;
+}
+
+.statusbar .date i {
+    margin-left: 0.5rem;
+}
+
+.container {
+    position: absolute;
+    bottom: 0rem;
+    width: 100%;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.container .navbar {
+    width: 6rem;
+    display: inline-block;
+    border-right: 1px solid #343841;
+}
+
+.container .navbar ul {
+    padding: 0;
+    list-style: none;
+}
+
+.container .navbar ul li {
+    border-bottom: 1px solid #343841;
+    padding: 2rem;
+    cursor: pointer;
+    color: #b3b3b3;
+    -moz-transition: border-left 0.2s linear, color 0.2s linear;
+    -o-transition: border-left 0.2s linear, color 0.2s linear;
+    -webkit-transition: border-left 0.2s linear, color 0.2s linear;
+    transition: border-left 0.2s linear, color 0.2s linear;
+    border-left: 4px solid #292C33;
+    border-right: 4px solid #292C33;
+}
+
+.container .navbar ul li i {
+    font-size: 2.0rem;
+}
+
+.container .navbar ul li:hover {
+    color: White;
+    border-left: 4px solid #2776C5;
+}
+
+.container .navbar ul li.active,
+.container .navbar ul li:active {
+    color: White;
+    text-shadow: 0 0 20px #4590da;
+    border-left: 4px solid #2776C5;
+}
+
+.container .list-group {
+    width: 20rem;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #343841;
+}
+
+.container .list-group ul {
+    padding: 0;
+    list-style: none;
+}
+
+.container .list-group ul li {
+    position: relative;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: #cccccc;
+    border-bottom: 1px solid #292C33;
+    -moz-transition: background-color 0.2s linear, color 0.2s linear;
+    -o-transition: background-color 0.2s linear, color 0.2s linear;
+    -webkit-transition: background-color 0.2s linear, color 0.2s linear;
+    transition: background-color 0.2s linear, color 0.2s linear;
+}
+
+.container .list-group ul li .picture {
+    float: left;
+    width: 3rem;
+    position: relative;
+}
+
+.container .list-group ul li .picture img {
+    width: 3rem;
+    height: 3rem;
+    -moz-border-radius: 2rem;
+    -webkit-border-radius: 2rem;
+    border-radius: 2rem;
+}
+
+.container .list-group ul li .picture .badge {
+    position: absolute;
+    bottom: -0.2rem;
+    right: -0.5rem;
+    background-color: #2776C5;
+    -moz-transition: border 0.2s linear;
+    -o-transition: border 0.2s linear;
+    -webkit-transition: border 0.2s linear;
+    transition: border 0.2s linear;
+    color: White;
+    font-size: 0.6rem;
+    line-height: 1.1rem;
+    width: 1.5rem;
+    text-align: center;
+    border: 3px solid #343841;
+    -moz-border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    border-radius: 1rem;
+}
+
+.container .list-group ul li .picture .badge.orange {
+    background-color: #D28C1D;
+}
+
+.container .list-group ul li .picture .badge.blue {
+    background-color: #3198FD;
+}
+
+.container .list-group ul li .picture .badge.green {
+    background-color: #59BA37;
+}
+
+.container .list-group ul li .picture .badge.red {
+    background-color: #8A262E;
+}
+
+.container .list-group ul li .content {
+    float: right;
+    width: calc(100% - 4rem);
+}
+
+.container .list-group ul li .content .title {
+    color: White;
+    font-size: 1.3em;
+    font-family: "Work Sans", Arial, sans-serif;
+}
+
+.container .list-group ul li .content .description {
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+}
+
+.container .list-group ul li .content .description .location {
+    display: none;
+    color: #1f5e9e;
+}
+
+.container .list-group ul li .content .description .location i {
+    margin-right: 0.3rem;
+}
+
+.container .list-group ul li .content .description .tags {
+    margin-top: 0.4rem;
+}
+
+.container .list-group ul li .content .description .tags .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0px 5px;
+    margin: 2px;
+    color: White;
+    background-color: #2776C5;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.container .list-group ul li .content .description .tags .tag.orange {
+    background-color: #D28C1D;
+}
+
+.container .list-group ul li .content .description .tags .tag.blue {
+    background-color: #3198FD;
+}
+
+.container .list-group ul li .content .description .tags .tag.green {
+    background-color: #59BA37;
+}
+
+.container .list-group ul li .content .description .tags .tag.red {
+    background-color: #8A262E;
+}
+
+.container .list-group ul li .footer {
+    display: block;
+    clear: both;
+    width: 100%;
+    padding-top: 0.8rem;
+    font-size: 0.7rem;
+}
+
+.container .list-group ul li .footer .info i {
+    margin-right: 0.3rem;
+}
+
+.container .list-group ul li .footer .info.left {
+    float: left;
+}
+
+.container .list-group ul li .footer .info.right {
+    float: right;
+}
+
+.container .list-group ul li .footer:before,
+.container .list-group ul li .footer:after {
+    content: "";
+    display: table;
+}
+
+.container .list-group ul li .footer:after {
+    clear: both;
+}
+
+.container .list-group ul li .functions {
+    opacity: 0.1;
+    position: absolute;
+    right: 0.4rem;
+    top: 0.4rem;
+    color: #b3b3b3;
+    font-size: 0.8rem;
+    -moz-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
+}
+
+.container .list-group ul li .functions .func {
+    display: inline-block;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.container .list-group ul li .functions .func:hover {
+    color: White;
+}
+
+.container .list-group ul li:hover {
+    background-color: rgba(39, 118, 197, 0.3);
+}
+
+.container .list-group ul li:hover .picture .badge {
+    border: 3px solid rgba(39, 118, 197, 0.6);
+}
+
+.container .list-group ul li.active,
+.container .list-group ul li:active {
+    background-color: rgba(39, 118, 197, 0.6);
+}
+
+.container .list-group ul li.active .picture .badge,
+.container .list-group ul li:active .picture .badge {
+    border: 3px solid #2776C5;
+}
+
+.container .list-group ul li.active,
+.container .list-group ul li:active,
+.container .list-group ul li:hover {
+    color: White;
+}
+
+.container .list-group ul li.active .content .description .location,
+.container .list-group ul li:active .content .description .location,
+.container .list-group ul li:hover .content .description .location {
+    color: White;
+}
+
+.container .list-group ul li.active .functions,
+.container .list-group ul li:active .functions,
+.container .list-group ul li:hover .functions {
+    color: White;
+    opacity: 0.7;
+}
+
+.container .list-group ul li:before,
+.container .list-group ul li:after {
+    content: "";
+    display: table;
+}
+
+.container .list-group ul li:after {
+    clear: both;
+}
+
+.container .content {
+    flex: 1;
+    padding: 1rem;
+}
+
+.container .content .profile {
+    position: relative;
+    margin-right: 0.2rem;
+    color: #cccccc;
+}
+
+.container .content .profile .picture {
+    float: left;
+    width: 8rem;
+    margin: 0 1rem;
+    position: relative;
+}
+
+.container>.main-panel {
+    width: 100%;
+    display: inherit;
+}
+
+.container .content .profile .picture img {
+    width: 8rem;
+    height: 8rem;
+    -moz-border-radius: 4rem;
+    -webkit-border-radius: 4rem;
+    border-radius: 4rem;
+}
+
+.container .content .profile .picture .badge {
+    position: absolute;
+    bottom: 0.5rem;
+    right: -0.5rem;
+    background-color: #2776C5;
+    color: White;
+    font-size: 1.0rem;
+    line-height: 1.6rem;
+    width: 2.3rem;
+    text-align: center;
+    border: 6px solid #292C33;
+    -moz-border-radius: 2rem;
+    -webkit-border-radius: 2rem;
+    border-radius: 2rem;
+}
+
+.container .content .profile .picture .badge.orange {
+    background-color: #D28C1D;
+}
+
+.container .content .profile .picture .badge.blue {
+    background-color: #3198FD;
+}
+
+.container .content .profile .picture .badge.green {
+    background-color: #59BA37;
+}
+
+.container .content .profile .picture .badge.red {
+    background-color: #8A262E;
+}
+
+.container .content .profile .details {
+    margin-bottom: 1rem;
+}
+
+.container .content .profile .details .tags {
+    margin-bottom: 0.5rem;
+}
+
+.container .content .profile .details .tags .tag {
+    display: inline-block;
+    font-size: 0.9rem;
+    padding: 2px 8px;
+    margin: 2px;
+    color: White;
+    background-color: #2776C5;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.container .content .profile .details .tags .tag.orange {
+    background-color: #D28C1D;
+}
+
+.container .content .profile .details .tags .tag.blue {
+    background-color: #3198FD;
+}
+
+.container .content .profile .details .tags .tag.green {
+    background-color: #59BA37;
+}
+
+.container .content .profile .details .tags .tag.red {
+    background-color: #8A262E;
+}
+
+.container .content .profile .details .title {
+    color: White;
+    font-weight: 300;
+    font-size: 2.3rem;
+    font-family: "Work Sans", Arial, sans-serif;
+}
+
+.container .content .profile .details .titulus {
+    display: none;
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.container .content .profile .details .description {
+    margin-top: 0.6rem;
+    line-height: 1.3rem;
+    font-size: 0.9rem;
+}
+
+.container .content .profile .details .description .info-row {
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+}
+
+.container .content .profile .details .description .info-row i {
+    width: 1.5rem;
+}
+
+.container .content .profile .details .description .info-row .caption {
+    display: inline-block;
+    width: 5rem;
+}
+
+.container .content .profile .details .description .info-row .value {
+    margin-left: 0.5rem;
+    color: White;
+    font-weight: 400;
+}
+
+.container .content .profile hr {
+    margin: 2rem 0;
+    border: none;
+    border-bottom: 1px solid #40444f;
+}
+
+.container .content .profile .further {
+    margin: 1rem 2rem;
+}
+
+.container .content .profile .further .info-row .info-block {
+    display: inline-block;
+    width: 40%;
+    color: #b3b3b3;
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+}
+
+.container .content .profile .further .info-row .info-block i {
+    width: 1.5rem;
+}
+
+.container .content .profile .functions {
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+    width: 40%;
+    text-align: right;
+}
+
+.container .content .profile .functions .func {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 0.2rem;
+    color: #cccccc;
+    font-size: 1.0rem;
+    line-height: 2.3rem;
+    width: 2.3rem;
+    text-align: center;
+    background-color: #40444f;
+    -moz-border-radius: 2rem;
+    -webkit-border-radius: 2rem;
+    border-radius: 2rem;
+    -moz-transition: background-color 0.2s linear, color 0.2s linear;
+    -o-transition: background-color 0.2s linear, color 0.2s linear;
+    -webkit-transition: background-color 0.2s linear, color 0.2s linear;
+    transition: background-color 0.2s linear, color 0.2s linear;
+}
+
+.container .content .profile .functions .func:hover {
+    color: White;
+    background-color: #2776C5;
+}
+
+.container .content .profile .logs .title {
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+    color: #2776C5;
+    font-weight: 400;
+}
+
+.container .content .profile .logs table {
+    width: 100%;
+    font-size: 0.8rem;
+    line-height: 1.4rem;
+}
+
+.container .content .profile .logs table tr {
+    height: 1.4rem;
+}
+
+.container .content .profile .logs table tr td a {
+    color: #2776C5;
+    text-decoration: none;
+}
+
+.container .content .profile .logs table tr td a:hover {
+    text-decoration: underline;
+}
+
+.container .content .profile .logs table tr td:nth-child(1) {
+    width: 5rem;
+}
+
+.sub-panel {
+    text-align: center;
+    width: 50%;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+
+.random-number-container {
+    background: #3198FD;
+    margin-top: 10px;
+}
+
+.random-number {
+    line-height: 100px;
+    font-size: 2rem;
+    color: white;
+}
+
+.random-number-description {
+    font-size: 1.5rem;
+}
+
+.announcebox {
+    line-height: 80px;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    width: 35rem;
+    background-color: rgba(0,0,0,0);
+    border: solid rgba(0,0,0,0);
+    border-bottom: 2px solid white;
+    color: white;
+    outline: none;
+    
+}

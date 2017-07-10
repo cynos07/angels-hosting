@@ -30,7 +30,7 @@ public class VertxMain {
         RegisterCode.getInstance().checkRegisterCodeExist();
         RegisterCode.getInstance().refreshRegisterCode();
         vertx.deployVerticle(new WebVerticle()); // using static Handler, must be after other verticle deploied.
-        vertx.createHttpServer().requestHandler(router::accept).listen(8085);
+        vertx.createHttpServer().requestHandler(router::accept).listen(8003);
     }
 
     public static Vertx getVertx() {
