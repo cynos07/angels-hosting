@@ -11,6 +11,7 @@ import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.sstore.SessionStore;
 import io.vertx.ext.web.templ.FreeMarkerTemplateEngine;
 import io.vertx.ext.web.templ.TemplateEngine;
+import kr.angels.admin.AdminHandler;
 import kr.angels.utils.database.Database;
 
 
@@ -72,6 +73,8 @@ public class WebVerticle extends AbstractVerticle {
         InformHandler informHandler = new InformHandler();
         informHandler.start();
 
+        AdminHandler adminHandler = new AdminHandler();
+        adminHandler.start();
 
         TemplateEngine engine = FreeMarkerTemplateEngine.create();
         TemplateHandler handler = TemplateHandler.create(engine, "webroot", "text/html");

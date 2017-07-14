@@ -8,8 +8,13 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
 import kr.angels.admin.RegisterCode;
+import kr.angels.event.EventManager;
 import kr.angels.utils.database.Database;
+import kr.angels.utils.database.SecureConfig;
 import org.bson.Document;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by cynos07 on 2017-04-17.
@@ -17,17 +22,18 @@ import org.bson.Document;
 public class LoginHandler extends WebVerticle {
     private Database database;
     private Router router;
+    private SimpleDateFormat format;
 
     private void initialize() {
         database = Database.getInstance();
         router = getRouter();
+        format = new SimpleDateFormat("yyyy-MM-dd");
     }
 
     public void start() {
         initialize();
         router.get("/dynamic/index").handler(this::checkLogin);
         router.get("/dynamic/inform").handler(this::checkLogin);
-        router.get("/dynamic/admin").handler(this::checkAdmin);
         router.get("/dynamic/computer").handler(this::checkLogin);
         router.get("/api/checkLogin").handler(this::checkLogin);
         router.get("/api/logout").handler(this::requestLogout);
@@ -35,32 +41,11 @@ public class LoginHandler extends WebVerticle {
         router.post("/api/register").handler(this::requestRegister);
     }
 
-    private void checkAdmin(RoutingContext routingContext) {
-        if (routingContext.getCookie("ls") != null) {
-            String id = routingContext.session().get(routingContext.getCookie("ls").getValue());
-            Document searchQuqery = new Document();
-            searchQuqery.put("id", id);
-            Database.getInstance().getCollection("accounts").find(searchQuqery).first().get("type");
-            if (Database.getInstance().getCollection("accounts").find(searchQuqery).first().get("type").equals("admin")) {
-                routingContext.response().setStatusCode(200);
-                routingContext.next();
-            }
-            else{
-                routingContext.response().setStatusCode(400);
-                routingContext.reroute("/dynamic/index");
-            }
-        }
-        else{
-            routingContext.response().setStatusCode(400);
-            routingContext.reroute("/dynamic/index");
-        }
-    }
-
     private boolean registerAccount(String id, String password)
     {
         if(Database.getInstance().getCollection("accounts").count(new Document().append("id", id)) == 0)
         {
-            Database.getInstance().getCollection("accounts").insertOne(new Document().append("id", id).append("password", password).append("type", "user"));
+            Database.getInstance().getCollection("accounts").insertOne(new Document().append("id", id).append("password", password).append("type", "user").append("register_date", new Date()));
             return true;
         }
         return false;
@@ -90,6 +75,7 @@ public class LoginHandler extends WebVerticle {
                         response.setStatusCode(200);
                         json_response.put("message", "회원가입 되었습니다.");
                         RegisterCode.getInstance().refreshRegisterCode();
+                        EventManager.getInstance().addEvent(id, "registered");
                         response.end(json_response.toString());
                     } else{
                         response.setStatusCode(400);
@@ -112,6 +98,7 @@ public class LoginHandler extends WebVerticle {
     }
 
     private void requestLogout(RoutingContext routingContext) {
+        EventManager.getInstance().addEvent(routingContext.session().get(routingContext.getCookie("ls").getValue()), "logout");
         routingContext.session().remove(routingContext.getCookie("ls").getValue());
         routingContext.removeCookie("ls");
         routingContext.reroute("/dynamic/index");
@@ -149,31 +136,50 @@ public class LoginHandler extends WebVerticle {
         HttpServerResponse response = routingContext.response();
 
         response.setChunked(true);
-        if (database.isExist("accounts", "id", id)) {
-            if (database.isExist("accounts", "password", password)) {
-                response.setStatusCode(200);
-                Document searchQuery = new Document();
-                searchQuery.put("id", id);
-                Document account = database.findOne("accounts", searchQuery);
-                Session session = routingContext.session();
-                session.put(session.id(), id);
-                Cookie cookie = Cookie.cookie("ls", session.id());
-                cookie.setPath("/");
-                cookie.setMaxAge(50000);
-                routingContext.addCookie(cookie);
-                response.setChunked(true);
-                response.end();
+
+        if(SecureConfig.getInstance().getString("administrator.id").equals(id) && SecureConfig.getInstance().getString("administrator.password").equals(password))
+        {
+            response.setStatusCode(200);
+            Document searchQuery = new Document();
+            searchQuery.put("id", id);
+            Session session = routingContext.session();
+            session.put(session.id(), id);
+            Cookie cookie = Cookie.cookie("ls", session.id());
+            cookie.setPath("/");
+            cookie.setMaxAge(50000);
+            routingContext.addCookie(cookie);
+            response.setChunked(true);
+            response.end();
+        }
+        else{
+            if (database.isExist("accounts", "id", id)) {
+                if (database.isExist("accounts", "password", password)) {
+                    response.setStatusCode(200);
+                    Document searchQuery = new Document();
+                    searchQuery.put("id", id);
+                    Document account = database.findOne("accounts", searchQuery);
+                    Session session = routingContext.session();
+                    session.put(session.id(), id);
+                    Cookie cookie = Cookie.cookie("ls", session.id());
+                    cookie.setPath("/");
+                    cookie.setMaxAge(50000);
+                    routingContext.addCookie(cookie);
+                    EventManager.getInstance().addEvent(id, "logined");
+                    Database.getInstance().getCollection("accounts").updateOne(new Document(), new Document("$set", new Document("lastlogin", new Date())));
+                    response.setChunked(true);
+                    response.end();
+                } else {
+                    response.setStatusCode(201);
+                    JsonObject json_object = new JsonObject();
+                    json_object.put("error", "invalid password");
+                    response.end(json_object.toString());
+                }
             } else {
-                response.setStatusCode(201);
+                response.setStatusCode(202);
                 JsonObject json_object = new JsonObject();
-                json_object.put("error", "invalid password");
+                json_object.put("error", "no account found");
                 response.end(json_object.toString());
             }
-        } else {
-            response.setStatusCode(202);
-            JsonObject json_object = new JsonObject();
-            json_object.put("error", "no account found");
-            response.end(json_object.toString());
         }
     }
 }

@@ -6,8 +6,6 @@ import io.vertx.ext.web.RoutingContext;
 import kr.angels.utils.database.Database;
 import org.bson.Document;
 
-import java.util.Date;
-
 /**
  * Created by cynos07 on 2017-04-17.
  */
@@ -23,23 +21,6 @@ public class InformHandler extends WebVerticle {
     public void start() {
         initialize();
         router.get("/dynamic/inform").handler(this::getInform);
-        router.post("/admin/addInform").handler(this::addInform);
-    }
-
-    private void addInform(RoutingContext routingContext) {
-        HttpServerResponse response= routingContext.response();
-        response.setChunked(true);
-
-        Document doc = new Document();
-        doc.put("id", "jkh6100");
-        doc.put("hosting_id", "cynos07");
-        doc.put("hosting_pw", "0000");
-        doc.put("use_port", 3055);
-        doc.put("use_ram", 5);
-        doc.put("deadline", String.valueOf(new Date().getTime()));
-
-        database.insert("informs", doc);
-        response.end("addInform called");
     }
 
     private void getInform(RoutingContext routingContext) {
