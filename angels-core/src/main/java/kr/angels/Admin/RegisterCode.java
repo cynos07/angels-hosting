@@ -1,4 +1,4 @@
-package kr.angels.admin;
+package kr.angels.Admin;
 
 import kr.angels.utils.database.Database;
 import org.bson.Document;

@@ -1,5 +1,4 @@
-
-conf/
+.metadata
 build/
 /gradle/
 /.gradle/
@@ -8,4 +7,3 @@ build/
 /logs/
 /out/
 /angels-utils/src/main/resources/conf/SecureConfig.xml
-/angels-utils/src/main/resources/log4j2.xml

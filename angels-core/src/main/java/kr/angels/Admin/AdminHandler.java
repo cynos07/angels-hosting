@@ -1,4 +1,4 @@
-package kr.angels.admin;
+package kr.angels.Admin;
 
 import com.mongodb.client.MongoCursor;
 import io.vertx.core.http.HttpServerResponse;
